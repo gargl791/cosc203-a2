@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+    <%- include('partials/sidebar', { status: status, results: birds.length }) %>
+    <main id="birds">
+        <div>
+            <h2></h2>
+            <form action="/birds/edit" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="bird_id" value="">
+        
+                <fieldset>
+                    <legend>Common Names</legend>
+                    <label for="primary_name">Primary Name</label>
+                    <input type="text" name="primary_name" value="<%= curr_bird.primary_name %>" required="">
+        
+                    <label for="english_name">English Name</label>
+                    <input type="text" name="english_name" value="<%= curr_bird.english_name %>" required="">
+                </fieldset>
+        
+                <fieldset>
+                    <legend>Taxonomy</legend>
+                    <label for="scientific_name">Scientific Name</label>
+                    <input type="text" name="scientific_name" value="<%= curr_bird.scientific_name %>" required="">
+        
+                    <label for="order_name">Order</label>
+                    <input type="text" name="order_name" value="<%= curr_bird.order_name %>" required="">
+        
+                    <label for="family">Family</label>
+                    <input type="text" name="family" value="<%= curr_bird.family %>" required="">
+                </fieldset>
+        
+                <fieldset>
+                    <legend>Size</legend>
+                    <label for="length">Length (cm)</label>
+                    <input type="number" name="length" value="<%= curr_bird.length %>">
+        
+                    <label for="weight">Weight (g)</label>
+                    <input type="number" name="weight" value="<%= curr_bird.weight %>">
+                    
+                    <!-- Hidden input to share bird_id between middlewares-->
+                    <input type="hidden" name="bird_id" value="<%= curr_bird.bird_id %>">
+                </fieldset>
+        
+                <fieldset>
+                    <legend>Conservation</legend>
+                    <label for="status_name">Status</label>
+                    <select name="status_name" id="status">
+                            
+                            <option value = "1" <%= curr_bird.status_id == 1 ? "selected" : "" %>>Not Threatened</option>
+                        
+                            <option value = "2" <%= curr_bird.status_id == 2 ? "selected" : "" %>>Naturally Uncommon</option>
+                        
+                            <option value = "3" <%= curr_bird.status_id == 3 ? "selected" : "" %>>Relict</option>
+                        
+                            <option value = "4" <%= curr_bird.status_id == 4 ? "selected" : "" %>>Recovering</option>
+                        
+                            <option value = "5" <%= curr_bird.status_id == 5 ? "selected" : "" %>>Declining</option>
+                        
+                            <option value = "6" <%= curr_bird.status_id == 6 ? "selected" : "" %>>Nationally Increasing</option>
+                        
+                            <option value = "7" <%= curr_bird.status_id == 7 ? "selected" : "" %>>Nationally Vulnerable</option>
+                        
+                            <option value = "8" <%= curr_bird.status_id == 8 ? "selected" : "" %>>Nationally Endangered</option>
+                        
+                            <option value = "9" <%= curr_bird.status_id == 9 ? "selected" : "" %>>Nationally Critical</option>
+                        
+                            <option value = "10" <%= curr_bird.status_id == 10 ? "selected" : "" %>>Extinct</option>
+                        
+                            <option value = "11" <%= curr_bird.status_id == 11 ? "selected" : "" %>>Data Deficient</option>
+                        
+                    </select>
+                </fieldset>
+        
+                <fieldset>
+                    <legend>Photo</legend>
+                    <label for="photographer">Photo Credit</label>
+                    <input type="text" name="photographer" value="<%= curr_bird.photographer%>" required="">
+        
+                    <label for="photo_upload">Upload New Photo</label>
+                    <input type="file" name="photo_upload" id="photo_upload">
+        
+                    <label for="photo_source">Photo Preview</label>
+                    <img id="upload_preview" src="/images/<%= curr_bird.filename %>" alt="Photo of <%= curr_bird.filename %>">
+                    <input id="upload_source" type="text" name="photo_source" value="<%= curr_bird.filename%>" readonly="readonly">
+                </fieldset>
+        
+                <button class="button" type="submit">Save Bird</button>
+            </form>
+        </div>
+    </main>
+    <%- include('partials/footer') %>
+</body>
+</html>
